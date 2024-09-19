@@ -8,6 +8,10 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createNativeStackNavigator();
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import CustomTab from "./components/CustomTabBar";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import ChatScreen from "./screens/ChatScreen";
+
 const Tab = createBottomTabNavigator();
 export default function App() {
   const [isFirstLaunch, setIsFirstLaunch] = useState(true);
@@ -26,10 +30,15 @@ export default function App() {
   }, []);
   function MainTabNavigator() {
     return (
-      <Tab.Navigator>
+      <Tab.Navigator tabBar={(props) => <CustomTab {...props} />}>
         <Tab.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Chat"
+          component={ChatScreen}
           options={{ headerShown: false }}
         />
       </Tab.Navigator>
