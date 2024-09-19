@@ -4,17 +4,52 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Home from "./screens/HomeScreen";
 import Branding from "./screens/BrandingScreen";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createNativeStackNavigator();
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+const Tab = createBottomTabNavigator();
 export default function App() {
+  const [isFirstLaunch, setIsFirstLaunch] = useState(true);
+
+  useEffect(() => {
+    const checkLaunched = () => {
+      const alreadyLaunched = AsyncStorage.getItem("alreadyLaunched");
+      if (alreadyLaunched) {
+        setIsFirstLaunch(false);
+      } else {
+        setIsFirstLaunch(true);
+        AsyncStorage.setItem("alreadyLaunched", true);
+      }
+    };
+    checkLaunched();
+  }, []);
+  function MainTabNavigator() {
+    return (
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+      </Tab.Navigator>
+    );
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        {isFirstLaunch && (
+          <Stack.Screen
+            name="Branding"
+            component={Branding}
+            options={{ headerShown: false }}
+          />
+        )}
         <Stack.Screen
-          name="Branding"
-          component={Branding}
+          name="Main"
+          component={MainTabNavigator}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );
