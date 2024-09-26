@@ -10,6 +10,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { styles } from "./styles";
+import { generateContent } from "../../services/aiService";
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
@@ -20,7 +21,8 @@ const ChatScreen = () => {
     const userMessage = { sender: "user", text: inputText };
     setMessages([...messages, userMessage]);
 
-    const response = "ai cevabı";
+    const response = await generateContent(inputText);
+    console.log("ne ki", response);
     const botMessage = { sender: "bot", text: response };
 
     // Yanıtı ekle
@@ -44,7 +46,7 @@ const ChatScreen = () => {
 
   return (
     <ImageBackground
-      source={require("../../assets/bg.jpg")}
+      source={require("../../../assets/bg.jpg")}
       style={styles.background}
     >
       <FlatList

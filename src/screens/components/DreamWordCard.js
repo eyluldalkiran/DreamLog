@@ -17,7 +17,7 @@ const DreamWordCard = ({ word }) => {
   return (
     <View style={styles.card}>
       <ImageBackground
-        source={require("../assets/star.jpg")}
+        source={require("../../../assets/star.jpg")}
         style={styles.image}
       >
         <Text style={styles.text}>{word}</Text>

@@ -2,15 +2,15 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import Home from "./screens/HomeScreen";
-import Branding from "./screens/BrandingScreen";
+import Home from "./src/screens/HomeScreen";
+import Branding from "./src/screens/BrandingScreen";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createNativeStackNavigator();
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CustomTab from "./components/CustomTabBar";
+import CustomTab from "./src/screens/components/CustomTabBar";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import ChatScreen from "./screens/ChatScreen";
+import ChatScreen from "./src/screens/ChatScreen";
 
 const Tab = createBottomTabNavigator();
 export default function App() {

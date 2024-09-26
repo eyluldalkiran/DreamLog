@@ -9,8 +9,8 @@ import {
   FlatList,
 } from "react-native";
 
-import DreamWordCard from "../../components/DreamWordCard";
-import nicewords from "../../assets/nicewords.json";
+import DreamWordCard from "../components/DreamWordCard";
+import nicewords from "../../../assets/nicewords.json";
 import { styles } from "./styles";
 
 const Home = () => {
@@ -52,7 +52,7 @@ const Home = () => {
           scrollEnabled={false}
         />
       </View>
-      <Text>Rüya Günlüğü:</Text>
+      <Text style={styles.title}>Dreams</Text>
     </SafeAreaView>
   );
 };

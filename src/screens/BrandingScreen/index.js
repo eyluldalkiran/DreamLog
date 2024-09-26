@@ -13,7 +13,10 @@ import { styles } from "./styles";
 const Branding = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={require("../../assets/moon.png")} style={styles.image} />
+      <Image
+        source={require("../../../assets/moon.png")}
+        style={styles.image}
+      />
       <TouchableOpacity
         onPress={() => navigation.navigate("Home")}
         style={styles.button}
