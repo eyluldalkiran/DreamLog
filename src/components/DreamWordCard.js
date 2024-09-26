@@ -17,8 +17,9 @@ const DreamWordCard = ({ word }) => {
   return (
     <View style={styles.card}>
       <ImageBackground
-        source={require("../../../assets/star.jpg")}
+        source={require("../../assets/moon.jpg")}
         style={styles.image}
+        imageStyle={{ borderRadius: 10 }}
       >
         <Text style={styles.text}>{word}</Text>
       </ImageBackground>
@@ -33,16 +34,18 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: "#fff",
+    fontWeight: "bold",
   },
   image: {
     width: windowWidth - 20,
-    height: 150,
+    height: 200,
     padding: 5,
     margin: 10,
     borderWidth: 0.3,
-    borderRadius: 5,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
   },
 });
 export default DreamWordCard;

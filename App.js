@@ -8,9 +8,10 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createNativeStackNavigator();
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CustomTab from "./src/screens/components/CustomTabBar";
+import CustomTab from "./src/components/CustomTabBar";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import ChatScreen from "./src/screens/ChatScreen";
+import ArticleDetailScreen from "./src/screens/ArticleDetailScreen";
 
 const Tab = createBottomTabNavigator();
 export default function App() {
@@ -28,12 +29,21 @@ export default function App() {
     };
     checkLaunched();
   }, []);
+  function HomeStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="HomeScreen" component={Home} />
+        <Stack.Screen name="ArticleScreen" component={ArticleDetailScreen} />
+      </Stack.Navigator>
+    );
+  }
+
   function MainTabNavigator() {
     return (
       <Tab.Navigator tabBar={(props) => <CustomTab {...props} />}>
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={HomeStack}
           options={{ headerShown: false }}
         />
         <Tab.Screen
