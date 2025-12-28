@@ -9,18 +9,18 @@ const AddDream = ({ navigation }) => {
   const [text, setText] = useState("");
   const [mood, setMood] = useState("🙂");
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!text.trim()) return;
 
     const newDream = {
       id: Date.now().toString(),
       mood,
+      title: "",
       text,
       date: new Date().toDateString(),
     };
 
-    // Şimdilik sadece geri dönüyoruz
-    // Bir sonraki adımda AsyncStorage bağlayacağız
+    await saveDream(newDream);
     navigation.goBack();
   };
 

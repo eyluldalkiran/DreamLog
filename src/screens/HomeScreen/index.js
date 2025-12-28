@@ -2,31 +2,21 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, Text, FlatList, Pressable } from "react-native";
 
 import { styles } from "./styles";
-
-const MOCK_DREAMS = [
-  {
-    id: "1",
-    mood: "😨",
-    title: "Lost in a city",
-    text: "I was running through narrow streets and couldn’t find my way out.",
-    date: "Aug 11",
-  },
-  {
-    id: "2",
-    mood: "🙂",
-    title: "Flying again",
-    text: "I was flying above the clouds and felt completely free.",
-    date: "Aug 10",
-  },
-];
+import { getDreams } from "../../utils/dreamStorage";
 
 const Home = ({ navigation }) => {
   const [dreams, setDreams] = useState([]);
 
-  useEffect(() => {
-    // şimdilik mock, sonra storage
-    setDreams(MOCK_DREAMS);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      const loadDreams = async () => {
+        const storedDreams = await getDreams();
+        setDreams(storedDreams);
+      };
+
+      loadDreams();
+    }, [])
+  );
 
   const renderDream = ({ item }) => {
     return (
