@@ -13,6 +13,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import ChatScreen from "./src/screens/ChatScreen";
 import ArticleDetailScreen from "./src/screens/ArticleDetailScreen";
 import AddDream from "./src/screens/AddDreamScreen";
+import DreamDetail from "./src/screens/DreamDetailScreen";
 
 const Tab = createBottomTabNavigator();
 export default function App() {
@@ -77,6 +78,11 @@ export default function App() {
         <Stack.Screen
           name="AddDream"
           component={AddDream}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DreamDetail"
+          component={DreamDetail}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -25,3 +25,13 @@ export const saveDream = async (dream) => {
 export const clearDreams = async () => {
   await AsyncStorage.removeItem(DREAMS_KEY);
 };
+
+export const deleteDream = async (id) => {
+  try {
+    const existing = await getDreams();
+    const filtered = existing.filter((d) => d.id !== id);
+    await AsyncStorage.setItem(DREAMS_KEY, JSON.stringify(filtered));
+  } catch (e) {
+    console.error("Failed to delete dream", e);
+  }
+};
