@@ -12,6 +12,7 @@ import CustomTab from "./src/components/CustomTabBar";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import ChatScreen from "./src/screens/ChatScreen";
 import ArticleDetailScreen from "./src/screens/ArticleDetailScreen";
+import AddDream from "./src/screens/AddDreamScreen";
 
 const Tab = createBottomTabNavigator();
 export default function App() {
@@ -32,7 +33,11 @@ export default function App() {
   function HomeStack() {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="HomeScreen" component={Home} />
+        <Stack.Screen
+          name="HomeScreen"
+          component={Home}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="ArticleScreen" component={ArticleDetailScreen} />
       </Stack.Navigator>
     );
@@ -67,6 +72,11 @@ export default function App() {
         <Stack.Screen
           name="Main"
           component={MainTabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddDream"
+          component={AddDream}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

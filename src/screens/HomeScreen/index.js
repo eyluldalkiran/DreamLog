@@ -1,83 +1,85 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, View, Text, FlatList, Pressable } from "react-native";
 
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  Button,
-  FlatList,
-} from "react-native";
-
-import DreamWordCard from "../../components/DreamWordCard";
-import nicewords from "../../../assets/nicewords.json";
 import { styles } from "./styles";
-import axios from "axios";
-import ArticleCard from "../../components/ArticleCard";
+
+const MOCK_DREAMS = [
+  {
+    id: "1",
+    mood: "😨",
+    title: "Lost in a city",
+    text: "I was running through narrow streets and couldn’t find my way out.",
+    date: "Aug 11",
+  },
+  {
+    id: "2",
+    mood: "🙂",
+    title: "Flying again",
+    text: "I was flying above the clouds and felt completely free.",
+    date: "Aug 10",
+  },
+];
 
 const Home = ({ navigation }) => {
-  const [data, setData] = useState(nicewords);
-  const [articles, setArticles] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const flatListRef = useRef(null);
+  const [dreams, setDreams] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === nicewords.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 10000);
-
-    return () => clearInterval(interval);
+    // şimdilik mock, sonra storage
+    setDreams(MOCK_DREAMS);
   }, []);
 
-  useEffect(() => {
-    const getArticles = async () => {
-      const res = await axios.get("http://localhost:3000/articles");
-      setArticles(res.data);
-    };
-    getArticles();
-  }, []);
-  useEffect(() => {
-    if (flatListRef.current) {
-      flatListRef.current.scrollToIndex({
-        index: currentIndex,
-        animated: true,
-      });
-    }
-  }, [currentIndex]);
-  const renderItem = ({ item }) => {
-    return <DreamWordCard word={item.word} />;
-  };
-  const renderCard = ({ item }) => {
+  const renderDream = ({ item }) => {
     return (
-      <ArticleCard article={item} onPress={() => navigateArticleScreen(item)} />
+      <Pressable
+        style={styles.dreamCard}
+        onPress={() => navigation.navigate("DreamDetail", { dream: item })}
+      >
+        <Text style={styles.mood}>{item.mood}</Text>
+
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitle}>{item.title || "Untitled Dream"}</Text>
+          <Text style={styles.cardText} numberOfLines={2}>
+            {item.text}
+          </Text>
+          <Text style={styles.cardDate}>{item.date}</Text>
+        </View>
+      </Pressable>
     );
   };
-  const navigateArticleScreen = (item) => {
-    navigation.navigate("ArticleScreen", { article: item });
-  };
+
+  const renderEmptyState = () => (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyEmoji}>🌙</Text>
+      <Text style={styles.emptyTitle}>No dreams yet</Text>
+      <Text style={styles.emptySubtitle}>
+        Write your first dream and start remembering more.
+      </Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.card}>
-        <FlatList
-          ref={flatListRef}
-          data={data}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={renderItem}
-          horizontal
-          pagingEnabled
-          scrollEnabled={false}
-        />
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Dreamlog</Text>
+        <Text style={styles.headerSubtitle}>Your dream journal</Text>
       </View>
-      <Text style={styles.title}>Articles</Text>
+
       <FlatList
-        data={articles}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderCard}
-        horizontal
+        data={dreams}
+        keyExtractor={(item) => item.id}
+        renderItem={renderDream}
+        ListEmptyComponent={renderEmptyState}
+        contentContainerStyle={{ paddingBottom: 120 }}
       />
+
+      <Pressable
+        style={styles.fab}
+        onPress={() => navigation.navigate("AddDream")}
+      >
+        <Text style={styles.fabIcon}>＋</Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
+
 export default Home;
