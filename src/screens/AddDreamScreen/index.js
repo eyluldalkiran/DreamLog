@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SafeAreaView, View, Text, TextInput, Pressable } from "react-native";
 
 import { styles } from "./styles";
+import { saveDream } from "../../utils/dreamStorage";
 
 const MOODS = ["🙂", "😴", "😨", "🥰", "😕", "😵‍💫"];
 

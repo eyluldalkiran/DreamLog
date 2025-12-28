@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, FlatList, Pressable } from "react-native";
 
 import { styles } from "./styles";
 import { getDreams } from "../../utils/dreamStorage";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Home = ({ navigation }) => {
   const [dreams, setDreams] = useState([]);
